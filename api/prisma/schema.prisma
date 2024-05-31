@@ -1,0 +1,38 @@
+datasource db {
+  provider = "mysql" // or "postgresql" depending on your database
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  password   String
+  name       String
+  createdAt  DateTime @default(now())
+  membership Membership
+}
+
+model Video {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  title     String
+  videoUrl  String
+}
+
+model Article {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  title     String
+  imgUrl    String
+  content   String
+}
+
+enum Membership {
+  free
+  advanced
+  premium
+}
