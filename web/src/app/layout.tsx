@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/custom.scss";
 import "./globals.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import { StoreProvider } from "@/redux/store";
+import ProtectedPage from "@/routes/protected-routes";
+import AuthProvider from "@/routes/auth-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +21,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <StoreProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <AuthProvider>
+            <ProtectedPage>{children}</ProtectedPage>
+          </AuthProvider>
+        </body>
+      </html>
+    </StoreProvider>
   );
 }
