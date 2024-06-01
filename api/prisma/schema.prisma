@@ -14,12 +14,14 @@ model User {
   name       String
   createdAt  DateTime @default(now())
   membership Membership
+  isVerified Boolean  @default(false)
 }
 
 model Video {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   title     String
+  summary   String
   videoUrl  String
 }
 
@@ -27,6 +29,7 @@ model Article {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   title     String
+  summary   String
   imgUrl    String
   content   String
 }

@@ -2,7 +2,7 @@
 
 import express, { Application, Response, Request, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
-// import { routes } from "./routes";
+import { routes } from "./routes";
 import cors from "cors";
 import { config } from "dotenv";
 config();
@@ -25,7 +25,7 @@ app.use(
 
 const PORT = process.env.PORT;
 
-// app.use("/user", routes.userRoutes);
+app.use("/user", routes.userRoutes);
 // app.use("/article", routes.eventRoutes);
 // app.use("/video", routes.eventCatLoc);
 
