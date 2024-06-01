@@ -42,8 +42,7 @@ export const signInWithFb = (dispatch) => {
       const name = result.user.displayName;
       const password = "";
       const social = "fb";
-      console.log(result);
-      // dispatch(userLogin({ email, password, name, social }));
+      dispatch(userLogin({ email, password, name, social }));
     })
     .catch((error) => {
       console.error(error);

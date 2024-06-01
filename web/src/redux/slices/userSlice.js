@@ -1,16 +1,14 @@
 /** @format */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  id: '',
-  referral_num: '',
-  email: '',
-  name: '',
-  storeId: '',
+  email: "",
+  name: "",
+  membership: "",
 };
 
 const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     functionLogin: (state, action) => {
@@ -20,7 +18,7 @@ const userSlice = createSlice({
       };
     },
     functionLogout: (state) => {
-      localStorage.removeItem('user');
+      localStorage.removeItem("user");
       return initialState;
     },
   },

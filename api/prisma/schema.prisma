@@ -10,10 +10,10 @@ generator client {
 model User {
   id         String   @id @default(uuid())
   email      String   @unique
-  password   String
+  password   String   @default(uuid())
   name       String
   createdAt  DateTime @default(now())
-  membership Membership
+  membership Membership @default(free)
   isVerified Boolean  @default(false)
 }
 

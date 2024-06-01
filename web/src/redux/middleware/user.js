@@ -5,7 +5,7 @@ import { functionLogin, functionLogout } from "../slices/userSlice";
 import Swal from "sweetalert2";
 import { usePathname } from "next/navigation";
 
-export const userLogin = ({ email, password, social }) => {
+export const userLogin = ({ email, password, name, social }) => {
   return async (dispatch) => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -14,17 +14,12 @@ export const userLogin = ({ email, password, social }) => {
           res = await axiosInstance().get("/users", {
             params: { email, password },
           });
-        } else if (social == "google") {
-          res = await axiosInstance().get("/users/google", {
-            params: { email },
+        } else if (social !== "none") {
+          res = await axiosInstance().get("/user/social", {
+            params: { email, name },
           });
         }
-        if (res.data.result == "none") {
-          localStorage.setItem("user", res.data.token);
-          router.push("/auth/registerSocial/" + res.data.token);
-        }
         if (res.data.result?.id) {
-          const userData = res.data.result;
           Swal.fire({
             title: "Success!",
             icon: "success",
@@ -32,14 +27,6 @@ export const userLogin = ({ email, password, social }) => {
             showConfirmButton: false,
             willClose: async () => {
               await dispatch(functionLogin(res.data.result));
-              if (
-                userData.role == "superAdmin" ||
-                userData.role == "storeAdmin"
-              ) {
-                //   router.push('/admin');
-                // } else {
-                //   router.back();
-              }
               resolve();
             },
           });
@@ -72,7 +59,6 @@ export const keepLogin = () => {
       });
 
       if (res.data.result?.id) {
-        // await axiosInstance().patch('userDetails/v1');
         dispatch(functionLogin(res.data.result));
 
         localStorage.setItem("user", res.data.token);
