@@ -46,15 +46,6 @@ function Page() {
             id="password"
             type="password"
           ></input>
-          <div className=" mt-4 text-xs ">
-            Lost your password?{" "}
-            <Link
-              href="/auth/forgot-password"
-              className="text-[#4F46E5] font-bold"
-            >
-              Forgot password
-            </Link>
-          </div>
           <div className=" my-2 text-xs ">
             Create an account?{" "}
             <Link href="/auth/register" className="text-[#4F46E5] font-bold">

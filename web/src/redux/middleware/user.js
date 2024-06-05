@@ -7,44 +7,41 @@ import { usePathname } from "next/navigation";
 
 export const userLogin = ({ email, password, name, social }) => {
   return async (dispatch) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let res = {};
-        if (social == "none") {
-          res = await axiosInstance().get("/users", {
-            params: { email, password },
-          });
-        } else if (social !== "none") {
-          res = await axiosInstance().get("/user/social", {
-            params: { email, name },
-          });
-        }
-        if (res.data.result?.id) {
-          Swal.fire({
-            title: "Success!",
-            icon: "success",
-            timer: 2000,
-            showConfirmButton: false,
-            willClose: async () => {
-              await dispatch(functionLogin(res.data.result));
-              resolve();
-            },
-          });
-          localStorage.setItem("user", res.data.token);
-        }
-        return;
-      } catch (err) {
-        localStorage.removeItem("auth");
-        Swal.fire({
-          title: "Error!",
-          text: err.response.data.message,
-          icon: "error",
-          confirmButtonText: "ok",
+    try {
+      let res = {};
+      if (social == "none") {
+        res = await axiosInstance().get("/users", {
+          params: { email, password },
         });
-
-        return err.message;
+      } else if (social !== "none") {
+        res = await axiosInstance().get("/user/social", {
+          params: { email, name },
+        });
       }
-    });
+      if (res.data.result?.email) {
+        Swal.fire({
+          title: "Success!",
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+          willClose: async () => {
+            await dispatch(functionLogin(res.data.result));
+          },
+        });
+        localStorage.setItem("user", res.data.token);
+      }
+      return;
+    } catch (err) {
+      localStorage.removeItem("auth");
+      Swal.fire({
+        title: "Error!",
+        text: err.response.data.message,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
+
+      return err.message;
+    }
   };
 };
 
@@ -52,13 +49,13 @@ export const keepLogin = () => {
   return async (dispatch) => {
     try {
       const token = localStorage.getItem("user");
-      const res = await axiosInstance().get("/users/v1", {
+      const res = await axiosInstance().get("/user/v1", {
         headers: {
           Authorization: token,
         },
       });
 
-      if (res.data.result?.id) {
+      if (res.data.result?.email) {
         dispatch(functionLogin(res.data.result));
 
         localStorage.setItem("user", res.data.token);
