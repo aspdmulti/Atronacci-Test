@@ -9,7 +9,6 @@ import LoadingPage from "@/components/loading";
 
 const guestOnly = "guestOnly";
 const needLogin = "needLogin";
-const adminOnly = "adminOnly";
 
 class Route {
   constructor(path, type) {
@@ -19,12 +18,8 @@ class Route {
 }
 
 const routes = [];
-routes.push(new Route("/auth", guestOnly));
-routes.push(new Route("/admin", adminOnly));
-routes.push(new Route("/transaction", needLogin));
-routes.push(new Route("/profile", needLogin));
-routes.push(new Route("/history", needLogin));
-routes.push(new Route("/orders", needLogin));
+routes.push(new Route("auth", guestOnly));
+routes.push(new Route("content", needLogin));
 
 export default function ProtectedPage({ children }) {
   const userSelector = useSelector((state) => state.auth);
@@ -36,7 +31,7 @@ export default function ProtectedPage({ children }) {
     if (checkRoute?.type == needLogin && !userSelector.email) {
       return redirect("/auth/login");
     } else if (checkRoute?.type == guestOnly && userSelector.email) {
-      return redirect("/");
+      return redirect("/content");
     } else
       setTimeout(() => {
         setIsLoading(false);

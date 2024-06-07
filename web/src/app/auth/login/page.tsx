@@ -7,14 +7,24 @@ import {
   signInWithFb,
   signInWithGoogle,
 } from "../../../redux/middleware/social";
+import { store } from "@/redux/store";
+interface UserLoginPayload {
+  email: string;
+  password: string;
+  name: string;
+  social: string;
+}
 
+type AppDispatch = typeof store.dispatch;
 function Page() {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
   const login = () => {
-    // const email = document.getElementById('email').value;
-    // const password = document.getElementById('password').value;
-    // const social = 'none';
-    // dispatch(userLogin({ email, password, social }));
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const password = (document.getElementById("password") as HTMLInputElement)
+      .value;
+    const name = "";
+    const social = "none";
+    dispatch(userLogin({ email, password, name, social } as UserLoginPayload));
   };
   const googleLogin = () => {
     signInWithGoogle(dispatch);

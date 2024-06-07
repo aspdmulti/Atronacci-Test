@@ -1,11 +1,9 @@
 "use client";
-import NavbarComponent from "../components/navbar";
-import Image from "next/image";
-import { Container, Row, Col, Button, SSRProvider } from "react-bootstrap";
-export default function Home() {
+import NavbarComponent from "@/components/navbar";
+import { Container, Row, Col, Button } from "react-bootstrap";
+function Page() {
   return (
     <>
-      {/* <NavbarComponent /> */}
       <Container>
         <Row className="my-5">
           <Col>
@@ -20,3 +18,5 @@ export default function Home() {
     </>
   );
 }
+
+export default Page;

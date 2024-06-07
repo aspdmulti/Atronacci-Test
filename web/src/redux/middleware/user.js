@@ -10,7 +10,7 @@ export const userLogin = ({ email, password, name, social }) => {
     try {
       let res = {};
       if (social == "none") {
-        res = await axiosInstance().get("/users", {
+        res = await axiosInstance().get("/user", {
           params: { email, password },
         });
       } else if (social !== "none") {
