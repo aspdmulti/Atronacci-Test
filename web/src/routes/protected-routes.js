@@ -28,10 +28,12 @@ export default function ProtectedPage({ children }) {
 
   useEffect(() => {
     const checkRoute = routes.find((route) => pathname.includes(route.path));
-    if (checkRoute?.type == needLogin && !userSelector.email) {
+    if (pathname == "/" && !userSelector.email) {
+      return redirect("/auth/login");
+    } else if (checkRoute?.type == needLogin && !userSelector.email) {
       return redirect("/auth/login");
     } else if (checkRoute?.type == guestOnly && userSelector.email) {
-      return redirect("/content");
+      return redirect("/");
     } else
       setTimeout(() => {
         setIsLoading(false);

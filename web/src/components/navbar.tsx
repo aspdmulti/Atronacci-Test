@@ -1,33 +1,49 @@
-import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+"use client";
+import { functionLogout } from "@/redux/slices/userSlice";
+import { Button, Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 
+interface User {
+  email: string;
+  name: string;
+  membership: string;
+}
+interface RootState {
+  auth: User;
+}
 function NavbarComponent() {
-  return (
-    <Navbar bg="secondary" expand="lg" data-bs-theme="dark">
-      <Container>
-        <Navbar.Brand href="#home">
-          <img src="/logo-navbar.png" />
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-  );
+  const userSelector = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch(functionLogout());
+  };
+  if (userSelector.email) {
+    return (
+      <Navbar bg="secondary" expand="lg" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand href="#home">
+            <img src="/logo-navbar.png" />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="/">Home</Nav.Link>
+              <NavDropdown title="Contents">
+                <NavDropdown.Item href="#action/3.1">Articles</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Videos</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>Signed in as: {userSelector.name}</Navbar.Text>
+            <Button onClick={logout} className="mx-3" variant="danger">
+              Sign Out
+            </Button>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    );
+  }
 }
 
 export default NavbarComponent;

@@ -14,7 +14,6 @@ interface UserLoginPayload {
   name: string;
   social: string;
 }
-
 type AppDispatch = typeof store.dispatch;
 function Page() {
   const dispatch: AppDispatch = useDispatch();
