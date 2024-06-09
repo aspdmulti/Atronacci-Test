@@ -32,7 +32,9 @@ function NavbarComponent() {
                 <NavDropdown.Item href="/content/article">
                   Articles
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Videos</NavDropdown.Item>
+                <NavDropdown.Item href="/content/video">
+                  Videos
+                </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link href="/membership">Membership</Nav.Link>
             </Nav>

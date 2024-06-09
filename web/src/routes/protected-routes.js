@@ -20,6 +20,7 @@ class Route {
 const routes = [];
 routes.push(new Route("auth", guestOnly));
 routes.push(new Route("content", needLogin));
+routes.push(new Route("membership", needLogin));
 
 export default function ProtectedPage({ children }) {
   const userSelector = useSelector((state) => state.auth);
