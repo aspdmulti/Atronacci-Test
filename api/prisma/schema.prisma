@@ -21,7 +21,7 @@ model Video {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   title     String
-  summary   String
+  summary   String   @db.LongText
   videoUrl  String
 }
 
@@ -29,9 +29,9 @@ model Article {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   title     String
-  summary   String
+  summary   String   @db.LongText
   imgUrl    String
-  content   String
+  content   String   @db.LongText
 }
 
 enum Membership {

@@ -19,9 +19,9 @@ function NavbarComponent() {
   };
   if (userSelector.email) {
     return (
-      <Navbar bg="secondary" expand="lg" data-bs-theme="dark">
+      <Navbar bg="secondary" expand="lg" data-bs-theme="dark" sticky="top">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <img src="/logo-navbar.png" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -29,9 +29,12 @@ function NavbarComponent() {
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <NavDropdown title="Contents">
-                <NavDropdown.Item href="#action/3.1">Articles</NavDropdown.Item>
+                <NavDropdown.Item href="/content/article">
+                  Articles
+                </NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Videos</NavDropdown.Item>
               </NavDropdown>
+              <Nav.Link href="/membership">Membership</Nav.Link>
             </Nav>
           </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">

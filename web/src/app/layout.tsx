@@ -7,7 +7,6 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { StoreProvider } from "@/redux/store";
 import ProtectedPage from "@/routes/protected-routes";
 import AuthProvider from "@/routes/auth-provider";
-import { useSelector } from "react-redux";
 import NavbarComponent from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +23,12 @@ export default function RootLayout({
   return (
     <StoreProvider>
       <html lang="en">
-        <body className={inter.className}>
+        <body
+          className={
+            inter.className +
+            " bg-[url('https://astronacci.com/images/website/bg-layer8.jpg')]"
+          }
+        >
           <AuthProvider>
             <ProtectedPage>
               <NavbarComponent />

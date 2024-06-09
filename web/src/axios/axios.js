@@ -5,7 +5,7 @@ import axios from "axios";
 export const axiosInstance = () => {
   const token = localStorage.getItem("user");
   return axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,
     headers: {
       Authorization: token,
     },
@@ -14,6 +14,6 @@ export const axiosInstance = () => {
 
 export const axiosInstanceSSR = () => {
   return axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,
   });
 };
